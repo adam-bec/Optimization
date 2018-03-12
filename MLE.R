@@ -21,7 +21,7 @@ logLL <- function(theta, X, y) {
   -sum(x = dpois(x = y, lambda = X %*% theta, log = TRUE))
 }
 
-mle <- optim(par = c(0,0), fn = logLL, x = model.matrix(y ~ x1, data = data), y = data$y, method = "BFGS", hessian = TRUE)
+mle <- optim(par = c(0,0), fn = logLL, x = model.matrix(y ~ x1, data = data), y = data$y, method = "Nelder-Mead", hessian = TRUE)
 se <- sqrt(x = diag(x = solve(a = mle$hessian)))
 p <- pchisq(q = (mle$par/se)^2, df = 1, lower.tail = FALSE)
 aic <- 2 * mle$value + 2 * 3
